@@ -14,6 +14,24 @@ Promise.all([
 	const hhIncomeData = data[1]
 	const geoData = data[2]
 
+	// zip data together for scatter plot
+	let mergedData = data[0]
+	mergedData.forEach(element => {
+		for (let i = 0; i < hhIncomeData.length; i++) {
+			if (element.FIPS === hhIncomeData[i].FIPS) {
+				element.VetPct = +element.VetPct
+				element.Income = +hhIncomeData[i].MedIncome;
+			}
+		}
+	})
+
+	// make a scatter plot showing veteran pop percent vs household income
+	let scatterPlot = new ScatterPlot({
+		'parentElement': '#scatterplot',
+		'containerHeight': 480,
+		'containerWidth': 600
+	}, mergedData);
+
 	// join veteran percentage and median hh income to geo data on county FIPS code
 	// there's a more optimized way to do this but shut up nerd
 	geoData.objects.counties.geometries.forEach(element => {
@@ -32,6 +50,12 @@ Promise.all([
 	});
 
 	console.info("Data preprocessing complete.")
+
+
+
+
+
+
 
 	// map of adult pop is veteran by county
 	//const choroplethMap = new ChoroplethMap({
