@@ -5,7 +5,7 @@ class ScatterPlot {
 			parentElement: _config.parentElement,
 			containerWidth: _config.containerWidth || 500,
 			containerHeight: _config.containerHeight || 140,
-			margin: { top: 40, right: 50, bottom: 30, left: 50 }
+			margin: { top: 40, right: 50, bottom: 80, left: 80 }
 		}
 
 		this.data = _data;
@@ -53,15 +53,30 @@ class ScatterPlot {
 			.attr('class', 'axis y-axis')
 			.call(vis.yAxis);
 
+		// Add X axis label:
+		vis.chart.append("text")
+			.attr("text-anchor", "end")
+			.attr("x", vis.width / 2 + vis.config.margin.left)
+			.attr("y", vis.height + vis.config.margin.top)
+			.text("% of Adults that are Veterans");
+
+		// Y axis label:
+		vis.chart.append("text")
+			.attr("text-anchor", "end")
+			.attr("transform", "rotate(-90)")
+			.attr("y", -vis.config.margin.left+20)
+			.attr("x", -vis.config.margin.top)
+			.text("Median Household Income (USD)")
+
 		//Add circles for each event in the data
 		vis.chart.selectAll('circle')
 			.data(vis.data)
 			.enter()
 			.append('circle')
-			.attr('fill', "red")
+			.attr('fill', "white")
 			.attr('opacity', .8)
-			.attr('stroke', "gray")
-			.attr('stroke-width', 2)
+			.attr('stroke', "DarkSlateBlue")
+			.attr('stroke-width', 1)
 			.attr('r', 1)
 			.attr('cx', (d) => vis.xScale(d.VetPct))
 			.attr('cy', (d) => vis.yScale(d.Income));
