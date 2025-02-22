@@ -33,18 +33,12 @@ Promise.all([
 	}, mergedData);
 
 	// join veteran percentage and median hh income to geo data on county FIPS code
-	// there's a more optimized way to do this but shut up nerd
 	geoData.objects.counties.geometries.forEach(element => {
 
-		for (let i = 0; i < veteranPctData.length; i++) {
-			if (element.id === veteranPctData[i].FIPS) {
-				element.properties.vetpop = +veteranPctData[i].Value;
-			}
-		}
-
-		for (let i = 0; i < hhIncomeData.length; i++) {
-			if (element.id === hhIncomeData[i].FIPS) {
-				element.properties.hhIncome = +hhIncomeData[i].Value;
+		for (let i = 0; i < mergedData.length; i++) {
+			if (element.id === mergedData[i].FIPS) {
+				element.properties.VetPct = mergedData[i].VetPct;
+				element.properties.Income = mergedData[i].Income;
 			}
 		}
 	});
