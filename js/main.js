@@ -3,26 +3,35 @@
  */
 
 Promise.all([
-	d3.csv('data/Veterans.csv'),
+	d3.csv('data/adult-pop-vet-pct.csv'),
+	d3.csv('data/median-hh-income.csv'),
 	d3.json('data/counties-10m.json')
 ]).then(data => {
 
 	// callback executed once all promised data is loaded.
 	console.info("All data files have been loaded.")
-	const veteransData = data[0]
-	const geoData = data[1]
+	const veteranPctData = data[0]
+	const hhIncomeData = data[1]
+	const geoData = data[2]
 
-	// join "percent of adult pop is veteran" to geo data on county FIPS code
+	// join veteran percentage and median hh income to geo data on county FIPS code
+	// there's a more optimized way to do this but shut up nerd
 	geoData.objects.counties.geometries.forEach(element => {
-		console.log(element)
 
-		for (let i = 0; i < countyPopulationData.length; i++) {
-			if (element.id === countyPopulationData[i].cnty_fips) {
-				element.properties.vetpop = +countyPopulationData[i].Value;
+		for (let i = 0; i < veteranPctData.length; i++) {
+			if (element.id === veteranPctData[i].FIPS) {
+				element.properties.vetpop = +veteranPctData[i].Value;
 			}
 		}
 
+		for (let i = 0; i < hhIncomeData.length; i++) {
+			if (element.id === hhIncomeData[i].FIPS) {
+				element.properties.hhIncome = +hhIncomeData[i].Value;
+			}
+		}
 	});
+
+	console.info("Data preprocessing complete.")
 
 	// map of adult pop is veteran by county
 	//const choroplethMap = new ChoroplethMap({
