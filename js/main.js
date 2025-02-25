@@ -46,15 +46,14 @@ Promise.all([
 	console.info("Data preprocessing complete.")
 
 
-
-
-
-
-
 	// map of adult pop is veteran by county
-	//const choroplethMap = new ChoroplethMap({
-	//	parentElement: '.viz',
-	//}, geoData);
+
+
+
+	// map of medium household income by county
+	const incomeMap = new IncomeMap({
+		parentElement: '.vis',
+	}, geoData);
 
 })
 .catch(error => console.error(error))

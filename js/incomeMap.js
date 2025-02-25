@@ -1,4 +1,4 @@
-class ChoroplethMap {
+class IncomeMap {
 
 	/**
 	 * Class constructor with basic configuration
@@ -55,8 +55,8 @@ class ChoroplethMap {
 			.scale(vis.width);
 
 		vis.colorScale = d3.scaleLinear()
-			.domain(d3.extent(vis.data.objects.counties.geometries, d => d.properties.pop))
-			.range(['#cfe2f2', '#0d306b'])
+			.domain(d3.extent(vis.data.objects.counties.geometries, d => d.properties.Income))
+			.range(['#e5f5e0', '#31a354'])
 			.interpolate(d3.interpolateHcl);
 
 		vis.path = d3.geoPath()
@@ -77,8 +77,8 @@ class ChoroplethMap {
 			.attr("d", vis.path)
 			// .attr("class", "county-boundary")
 			.attr('fill', d => {
-				if (d.properties.pop) {
-					return vis.colorScale(d.properties.pop);
+				if (d.properties.Income) {
+					return vis.colorScale(d.properties.Income);
 				} else {
 					return 'url(#lightstripe)';
 				}
@@ -88,14 +88,14 @@ class ChoroplethMap {
 			.on('mousemove', (d, event) => {
 				console.log(d);
 				console.log(event);
-				const popDensity = d.properties.pop ? `<strong>${d.properties.pop}</strong> pop. density per km<sup>2</sup>` : 'No data available';
+				const medHHIncome = event.properties.Income ? `Median Household Income: $<strong>${event.properties.Income}</strong>` : 'No data available';
 				d3.select('#tooltip')
 					.style('display', 'block')
-					.style('left', (event.pageX + vis.config.tooltipPadding) + 'px')
-					.style('top', (event.pageY + vis.config.tooltipPadding) + 'px')
+					.style('left', (d.pageX + vis.config.tooltipPadding) + 'px')
+					.style('top', (d.pageY + vis.config.tooltipPadding) + 'px')
 					.html(`
-                        <div class="tooltip-title">${d.properties.name}</div>
-                        <div>${popDensity}</div>
+                        <div class="tooltip-title">${event.properties.name}</div>
+                        <div>${medHHIncome}</div>
                       `);
 			})
 			.on('mouseleave', () => {
@@ -110,6 +110,5 @@ class ChoroplethMap {
 			.attr("d", vis.path);
 
 	}
-
 
 }
