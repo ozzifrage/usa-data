@@ -51,8 +51,11 @@ Promise.all([
 
 
 	// map of medium household income by county
-	const incomeMap = new IncomeMap({
+	const incomeMap = new ChoroplethMap({
 		parentElement: '.vis',
+		colorRange: ['#e5f5e0', '#31a354'],
+		tooltipString: `Median Household Income: $`,
+		tooltipMetric: "Income"
 	}, geoData);
 
 })

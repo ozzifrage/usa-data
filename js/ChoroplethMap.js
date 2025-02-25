@@ -1,4 +1,4 @@
-class IncomeMap {
+class ChoroplethMap {
 
 	/**
 	 * Class constructor with basic configuration
@@ -8,6 +8,9 @@ class IncomeMap {
 	constructor(_config, _data) {
 		this.config = {
 			parentElement: _config.parentElement,
+			colorRange: _config.colorRange,
+			tooltipString: _config.tooltipString,
+			tooltipMetric: _config.tooltipMetric,
 			containerWidth: _config.containerWidth || 1000,
 			containerHeight: _config.containerHeight || 500,
 			margin: _config.margin || { top: 10, right: 10, bottom: 10, left: 10 },
@@ -55,8 +58,8 @@ class IncomeMap {
 			.scale(vis.width);
 
 		vis.colorScale = d3.scaleLinear()
-			.domain(d3.extent(vis.data.objects.counties.geometries, d => d.properties.Income))
-			.range(['#e5f5e0', '#31a354'])
+			.domain(d3.extent(vis.data.objects.counties.geometries, d => d.properties[vis.config.tooltipMetric]))
+			.range(this.config.colorRange)
 			.interpolate(d3.interpolateHcl);
 
 		vis.path = d3.geoPath()
@@ -77,8 +80,8 @@ class IncomeMap {
 			.attr("d", vis.path)
 			// .attr("class", "county-boundary")
 			.attr('fill', d => {
-				if (d.properties.Income) {
-					return vis.colorScale(d.properties.Income);
+				if (d.properties[vis.config.tooltipMetric]) {
+					return vis.colorScale(d.properties[vis.config.tooltipMetric]);
 				} else {
 					return 'url(#lightstripe)';
 				}
@@ -88,14 +91,14 @@ class IncomeMap {
 			.on('mousemove', (d, event) => {
 				console.log(d);
 				console.log(event);
-				const medHHIncome = event.properties.Income ? `Median Household Income: $<strong>${event.properties.Income}</strong>` : 'No data available';
+				const tooltipText = event.properties[vis.config.tooltipMetric] ? vis.config.tooltipString + `<strong>${event.properties[vis.config.tooltipMetric]}</strong>` : 'No data available';
 				d3.select('#tooltip')
 					.style('display', 'block')
 					.style('left', (d.pageX + vis.config.tooltipPadding) + 'px')
 					.style('top', (d.pageY + vis.config.tooltipPadding) + 'px')
 					.html(`
                         <div class="tooltip-title">${event.properties.name}</div>
-                        <div>${medHHIncome}</div>
+                        <div>${tooltipText}</div>
                       `);
 			})
 			.on('mouseleave', () => {
