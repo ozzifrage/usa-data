@@ -84,9 +84,9 @@ class ScatterPlot {
 		//Tooltip listener for circles 
 		vis.circles
 			.on('mousemove', (event, d) => {
-				console.log("mouse over! ");
-				console.log(event);
+				console.log("mouse over scatterplot! ");
 				console.log(d);
+				console.log(event);
 
 				d3.select('#tooltip')
 					.style('display', 'block')

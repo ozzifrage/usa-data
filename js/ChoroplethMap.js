@@ -88,16 +88,17 @@ class ChoroplethMap {
 			});
 
 		vis.counties
-			.on('mousemove', (d, event) => {
+			.on('mousemove', (event, d) => {
+				console.log("mouse over choropleth!")
 				console.log(d);
 				console.log(event);
-				const tooltipText = event.properties[vis.config.tooltipMetric] ? vis.config.tooltipString + `<strong>${event.properties[vis.config.tooltipMetric]}</strong>` : 'No data available';
+				const tooltipText = d.properties[vis.config.tooltipMetric] ? vis.config.tooltipString + `<strong>${d.properties[vis.config.tooltipMetric]}</strong>` : 'No data available';
 				d3.select('#tooltip')
 					.style('display', 'block')
-					.style('left', (d.pageX + vis.config.tooltipPadding) + 'px')
-					.style('top', (d.pageY + vis.config.tooltipPadding) + 'px')
+					.style('left', (event.pageX + vis.config.tooltipPadding) + 'px')
+					.style('top', (event.pageY + vis.config.tooltipPadding) + 'px')
 					.html(`
-                        <div class="tooltip-title">${event.properties.name}</div>
+                        <div class="tooltip-title">${d.properties.name}</div>
                         <div>${tooltipText}</div>
                       `);
 			})
