@@ -109,7 +109,7 @@ d3.selectAll('.legend-btn').on('click', function() {
 	console.log(mergedData)
   
 	// Filter data accordingly and update vises
-	filteredData = mergedData.filter(d => selectedCategories.includes(d.VetClass) || selectedCategories.includes(d.IncomeClass));
+	filteredData = mergedData.filter(d => selectedCategories.includes(d.VetClass) && selectedCategories.includes(d.IncomeClass));
 	console.log(filteredData)
 	scatterPlot.data = filteredData;
 	
