@@ -49,3 +49,96 @@
 	font-size: 14px;
 	font-weight: 600;
 }
+
+.header-box {
+	background-color: #F1F1F1;
+	padding: 10px;
+	text-align: center;
+	width: 33%;
+	height: 10%;
+	float: left;
+	box-shadow: 2px 2px 2px 2px rgb(92 92 92 / 0.5);
+	margin: 5px;
+	display: table-cell;
+}
+
+.panel {
+	background-color: #F1F1F1;
+	box-shadow: 3px 3px 3px 0px rgb(92 92 92 / 0.5);
+	border: 1px solid #ddd;
+	padding: 8px;
+	margin: 5px;
+}
+
+.controls-box {
+	background-color: #F1F1F1;
+	box-shadow: 3px 3px 3px 0px rgb(92 92 92 / 0.5);
+	border: 1px solid #ddd;
+	padding: 10px;
+	margin: 5px;
+	height: 150px;
+	float: left;
+	width: 60%;
+	display: table-cell;
+	text-align: center;
+
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+	float: left;
+	width: 33%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.legend-btn {
+	display: inline-block;
+	margin: 0 20px 0 0;
+	cursor: pointer;
+	transition: all ease-in-out 200ms;
+}
+
+.legend-btn:hover.legend-btn.inactive:hover {
+	opacity: 1.0;
+}
+
+.legend-btn.inactive {
+	opacity: 0.3;
+}
+
+.legend-symbol {
+	width: 12px;
+	height: 12px;
+	margin-right: 3px;
+	display: inline-block;
+}
+
+.legend-btn[category="under $30,000"] .legend-symbol {
+	background: #d0e9cc;
+}
+
+.legend-btn[category="under $60,000"] .legend-symbol {
+	background: #9de592;
+}
+
+.legend-btn[category="above $60,000"] .legend-symbol {
+	background: #38a427;
+}
+
+.legend-btn[category="under 5%"] .legend-symbol {
+	background: #dcefee;
+}
+
+.legend-btn[category="under 10%"] .legend-symbol {
+	background: #67c7e4;
+}
+
+.legend-btn[category="above 10%"] .legend-symbol {
+	background: #3f9be2;
+}

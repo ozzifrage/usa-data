@@ -5,8 +5,34 @@
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
-		<h1>USA Data Vis Project</h1>
-		<h2>Ryan Williams</h2>
+		<div class="row">
+			<div class="header-box">
+				<h2>USA Data Vis Project</h2>
+				<h3>Ryan Williams</h3>
+				<h4>Data Source: USDA Atlas of Rural and Small-Town America</h4>
+			</div>
+	
+			<div class="controls-box">
+				<h4>Filter by Veteran %</h4>
+				<ul class="legend">
+					<li class="legend-btn" category="under 5%"><span class="legend-symbol"></span> Under 5%</li>
+					<li class="legend-btn" category="under 10%"><span class="legend-symbol"></span> Under 10%</li>
+					<li class="legend-btn" category="above 10%"><span class="legend-symbol"></span> Above 10%</li>
+				</ul>
+			
+				<h4>Filter by Median Household Income</h4>
+				<ul class="legend">
+					<li class="legend-btn" category="under $30,000"><span class="legend-symbol"></span> Under $30,000</li>
+					<li class="legend-btn" category="under $60,000"><span class="legend-symbol"></span> Under $60,000</li>
+					<li class="legend-btn" category="above $60,000"><span class="legend-symbol"></span> Above $60,000</li>
+				</ul>
+			
+
+			</div>
+
+		</div>
+
+
 
 		<svg height="5" width="5" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="lightstripe" patternUnits="userSpaceOnUse" width="5" height="5"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc1JyBoZWlnaHQ9JzUnPgogIDxyZWN0IHdpZHRoPSc1JyBoZWlnaHQ9JzUnIGZpbGw9J3doaXRlJy8+CiAgPHBhdGggZD0nTTAgNUw1IDBaTTYgNEw0IDZaTS0xIDFMMSAtMVonIHN0cm9rZT0nIzg4OCcgc3Ryb2tlLXdpZHRoPScxJy8+Cjwvc3ZnPg==" x="0" y="0" width="5" height="5"> </image> </pattern> </defs></svg>
 
@@ -15,11 +41,14 @@
 		<script src="js/topojson.v3.js"></script>
 		<script src="js/ChoroplethMap.js"></script>
 		<script src="js/ScatterPlot.js"></script>
+		<script src="js/BarChart.js"></script>
 		<script src="js/main.js"></script>
 
 		<!-- anchor div for visualization-->
-		<div class="vis">
+		<div id="top-vis" class="panel">
 			<svg id="scatterplot"></svg>
+		</div>
+		<div id="vis" class="panel">
 			<div id="tooltip"></div>
 		</div>
 	</body>
