@@ -59,7 +59,7 @@ class ChoroplethMap {
 
 		vis.colorScale = d3.scaleLinear()
 			.domain(d3.extent(vis.data.objects.counties.geometries, d => d.properties[vis.config.tooltipMetric]))
-			.range(this.config.colorRange)
+			.range(vis.config.colorRange)
 			.interpolate(d3.interpolateHcl);
 
 		vis.path = d3.geoPath()

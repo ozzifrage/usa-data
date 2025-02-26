@@ -21,11 +21,11 @@ class ScatterPlot {
 		vis.width = vis.config.containerWidth - vis.config.margin.left - vis.config.margin.right;
 		vis.height = vis.config.containerHeight - vis.config.margin.top - vis.config.margin.bottom;
 
-		// Define 'svg' as a child-element (g) from the drawing area and include spaces
-		// Add <svg> element (drawing space)
-		vis.svg = d3.select(vis.config.parentElement)
+		// Create, define size of SVG drawing area
+		vis.svg = d3.select(vis.config.parentElement).append('svg')
+			.attr('class', 'center-container')
 			.attr('width', vis.config.containerWidth)
-			.attr('height', vis.config.containerHeight)
+			.attr('height', vis.config.containerHeight);
 
 		vis.chart = vis.svg.append('g')
 			.attr('transform', `translate(${vis.config.margin.left}, ${vis.config.margin.top})`);
@@ -68,18 +68,26 @@ class ScatterPlot {
 			.attr("x", -vis.config.margin.top)
 			.text("Median Household Income (USD)")
 
+		vis.updateVis()
+	}
+
+	updateVis() {
+
+		let vis = this 
+		console.log("ScatterPlot is getting...")
+		console.log(vis.data)
+
 		//Add circles for each event in the data
 		vis.circles = vis.chart.selectAll('circle')
-			.data(vis.data)
-			.enter()
-			.append('circle')
-			.attr('fill', "white")
-			.attr('opacity', .8)
-			.attr('stroke', "DarkSlateBlue")
-			.attr('stroke-width', 1)
-			.attr('r', 1)
-			.attr('cx', (d) => vis.xScale(d.VetPct))
-			.attr('cy', (d) => vis.yScale(d.Income));
+		.data(vis.data)
+		.join('circle')
+		.attr('fill', "white")
+		.attr('opacity', .8)
+		.attr('stroke', "DarkSlateBlue")
+		.attr('stroke-width', 1)
+		.attr('r', 1)
+		.attr('cx', (d) => vis.xScale(d.VetPct))
+		.attr('cy', (d) => vis.yScale(d.Income));
 
 		//Tooltip listener for circles 
 		vis.circles

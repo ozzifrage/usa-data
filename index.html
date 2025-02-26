@@ -15,16 +15,16 @@
 			<div class="controls-box">
 				<h4>Filter by Veteran %</h4>
 				<ul class="legend">
-					<li class="legend-btn" category="under 5%"><span class="legend-symbol"></span> Under 5%</li>
-					<li class="legend-btn" category="under 10%"><span class="legend-symbol"></span> Under 10%</li>
-					<li class="legend-btn" category="above 10%"><span class="legend-symbol"></span> Above 10%</li>
+					<li class="legend-btn" category="vet-low"><span class="legend-symbol"></span> Under 5%</li>
+					<li class="legend-btn" category="vet-medium"><span class="legend-symbol"></span> Under 10%</li>
+					<li class="legend-btn" category="vet-high"><span class="legend-symbol"></span> Above 10%</li>
 				</ul>
 			
 				<h4>Filter by Median Household Income</h4>
 				<ul class="legend">
-					<li class="legend-btn" category="under $30,000"><span class="legend-symbol"></span> Under $30,000</li>
-					<li class="legend-btn" category="under $60,000"><span class="legend-symbol"></span> Under $60,000</li>
-					<li class="legend-btn" category="above $60,000"><span class="legend-symbol"></span> Above $60,000</li>
+					<li class="legend-btn" category="income-low"><span class="legend-symbol"></span> Under $30,000</li>
+					<li class="legend-btn" category="income-medium"><span class="legend-symbol"></span> Under $60,000</li>
+					<li class="legend-btn" category="income-high"><span class="legend-symbol"></span> Above $60,000</li>
 				</ul>
 			
 
@@ -45,11 +45,14 @@
 		<script src="js/main.js"></script>
 
 		<!-- anchor div for visualization-->
-		<div id="top-vis" class="panel">
-			<svg id="scatterplot"></svg>
-		</div>
-		<div id="vis" class="panel">
+		<div>
+			<div id="top-vis" class="panel"></div>
+
+			<div id="vis" class="panel">
+
+			</div>
 			<div id="tooltip"></div>
 		</div>
+
 	</body>
 </html>

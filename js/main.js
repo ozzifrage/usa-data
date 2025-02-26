@@ -2,6 +2,8 @@
  * Load all data before doing anything else.
  */
 
+let data, mergedData;
+
 Promise.all([
 	d3.csv('data/adult-pop-vet-pct.csv'),
 	d3.csv('data/median-hh-income.csv'),
@@ -15,27 +17,28 @@ Promise.all([
 	const geoData = data[2]
 
 	// zip data together for scatter plot
-	let mergedData = data[0]
+	mergedData = data[0]
 	mergedData.forEach(element => {
 		for (let i = 0; i < hhIncomeData.length; i++) {
 			if (element.FIPS === hhIncomeData[i].FIPS) {
 				element.VetPct = +element.VetPct
 				element.Income = +hhIncomeData[i].MedIncome;
 
+				// add binned data for representational graphs
 				if (element.Income < 30000) {
-					element.IncomeClass = "low"
+					element.IncomeClass = "income-low"
 				} else if (element.Income < 60000) {
-					element.IncomeClass = "medium"
+					element.IncomeClass = "income-medium"
 				} else {
-					element.IncomeClass = "high"
+					element.IncomeClass = "income-high"
 				}
 
 				if (element.VetPct < 5) {
-					element.VetClass = "low"
+					element.VetClass = "vet-low"
 				} else if (element.VetPct < 10) {
-					element.VetClass = "medium"
+					element.VetClass = "vet-medium"
 				} else {
-					element.VetClass = "high"
+					element.VetClass = "vet-high"
 				}
 			}
 		}
@@ -44,11 +47,15 @@ Promise.all([
 	})
 
 	// make a scatter plot showing veteran pop percent vs household income
-	let scatterPlot = new ScatterPlot({
-		'parentElement': '#scatterplot',
+	scatterPlot = new ScatterPlot({
+		'parentElement': '#top-vis',
 		'containerHeight': 500,
 		'containerWidth': 600
 	}, mergedData);
+
+	//let barChart = new BarChart({
+
+	//}, mergedData)
 
 	// join veteran percentage and median hh income to geo data on county FIPS code
 	geoData.objects.counties.geometries.forEach(element => {
@@ -94,13 +101,18 @@ d3.selectAll('.legend-btn').on('click', function() {
 	d3.select(this).classed('inactive', !d3.select(this).classed('inactive'));
 	
 	// Check which categories are active
-	let selectedCategory = [];
+	let selectedCategories = [];
 	d3.selectAll('.legend-btn:not(.inactive)').each(function() {
-	  selectedCategory.push(d3.select(this).attr('category'));
+		selectedCategories.push(d3.select(this).attr('category'));
 	});
+	console.log(selectedCategories)
+	console.log(mergedData)
   
-	// Filter data accordingly and update vis
-	//timelineCircles.data = data.filter(d => selectedCategory.includes(d.category)) ;
-	//timelineCircles.updateVis();
+	// Filter data accordingly and update vises
+	filteredData = mergedData.filter(d => selectedCategories.includes(d.VetClass) || selectedCategories.includes(d.IncomeClass));
+	console.log(filteredData)
+	scatterPlot.data = filteredData;
+	
+	scatterPlot.updateVis();
   
   });
