@@ -13,6 +13,7 @@ class BarChart {
 		this.barColor = _config.barColor;
 		this.keyMetric = _config.keyMetric;
 		this.xAxisLabel = _config.xAxisLabel;
+		this.titleText = _config.chartTitle;
 
 		this.initVis();
 	}
@@ -83,6 +84,15 @@ class BarChart {
 			.attr("y", -vis.config.margin.left + 20)
 			.attr("x", -vis.config.margin.top - 100)
 			.text("# Of Counties")
+
+		// chart title
+		vis.chart.append("text")
+			.attr("x", (vis.width / 2))             
+			.attr("y", 0 - (vis.config.margin.top / 2))
+			.attr("text-anchor", "middle")  
+			.style("font-size", "16px") 
+			.style("text-decoration", "underline")  
+			.text(vis.titleText);
 
 		vis.updateVis()
 	}

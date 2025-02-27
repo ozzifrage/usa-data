@@ -9,6 +9,7 @@ class ScatterPlot {
 		}
 
 		this.data = _data;
+		this.titleText = _config.titleText;
 
 		this.initVis();
 	}
@@ -67,6 +68,16 @@ class ScatterPlot {
 			.attr("y", -vis.config.margin.left + 20)
 			.attr("x", -vis.config.margin.top - 30)
 			.text("Median Household Income (USD)")
+
+
+		// chart title
+		vis.chart.append("text")
+			.attr("x", (vis.width / 2))             
+			.attr("y", 0 - (vis.config.margin.top / 2))
+			.attr("text-anchor", "middle")  
+			.style("font-size", "16px") 
+			.style("text-decoration", "underline")  
+			.text(vis.titleText);
 
 		vis.updateVis()
 	}

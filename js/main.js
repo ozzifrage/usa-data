@@ -48,9 +48,10 @@ Promise.all([
 
 	// make a scatter plot showing veteran pop percent vs household income
 	scatterPlot = new ScatterPlot({
-		'parentElement': '#top-vis',
-		'containerHeight': 500,
-		'containerWidth': 600
+		parentElement: '#top-vis',
+		containerHeight: 500,
+		containerWidth: 600,
+		titleText: 'County Veterancy Rate vs. Median Household Income'
 	}, mergedData);
 
 	incomeBarChart = new BarChart({
@@ -58,7 +59,8 @@ Promise.all([
 		interestCategories: ["income-low", "income-medium", "income-high"],
 		barColor: '#31a354',
 		keyMetric: 'IncomeClass',
-		xAxisLabel: 'Household Income Bracket'
+		xAxisLabel: 'Household Income Bracket',
+		chartTitle: 'Distribution of County Median Household Incomes'
 	}, mergedData)
 
 	veteransBarChart = new BarChart({
@@ -66,7 +68,8 @@ Promise.all([
 		interestCategories: ["vet-low", "vet-medium", "vet-high"],
 		barColor: '#3182bd',
 		keyMetric: 'VetClass',
-		xAxisLabel: 'Adult Veterancy % Bracket'
+		xAxisLabel: 'Adult Veterancy % Bracket',
+		chartTitle: 'Distribution of County Veterancy Rates'
 	}, mergedData)
 
 	// join veteran percentage and median hh income to geo data on county FIPS code
@@ -80,25 +83,22 @@ Promise.all([
 		}
 	});
 
-	console.info("Data preprocessing complete.")
-
-
 	// map of adult pop is veteran by county
 	const vetsMap = new ChoroplethMap({
 		parentElement: '#vis',
 		colorRange: ['#deebf7', '#3182bd'],
 		tooltipString: `Adult Pop. Vet %: `,
-		tooltipMetric: "VetPct"
+		tooltipMetric: "VetPct",
+		titleText: "Veterancy Rate by County"
 	}, geoData);
-
-
 
 	// map of medium household income by county
 	const incomeMap = new ChoroplethMap({
 		parentElement: '#vis',
 		colorRange: ['#e5f5e0', '#31a354'],
 		tooltipString: `Median Household Income: $`,
-		tooltipMetric: "Income"
+		tooltipMetric: "Income",
+		titleText: "Median Household Income by County"
 	}, geoData);
 
 })

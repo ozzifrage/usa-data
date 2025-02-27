@@ -18,7 +18,8 @@ class ChoroplethMap {
 			legendBottom: 50,
 			legendLeft: 50,
 			legendRectHeight: 12,
-			legendRectWidth: 150
+			legendRectWidth: 150,
+			titleText: _config.titleText
 		}
 		this.data = _data;
 		// this.config = _config;
@@ -106,12 +107,21 @@ class ChoroplethMap {
 				d3.select('#tooltip').style('display', 'none');
 			});
 
-
+		// chart title
+		vis.g.append("text")
+			.attr("x", (vis.width / 2))             
+			.attr("y", 20 - (vis.config.margin.top / 2))
+			.attr("text-anchor", "middle")  
+			.style("font-size", "16px") 
+			.style("text-decoration", "underline")  
+			.text(vis.config.titleText);
 
 		vis.g.append("path")
 			.datum(topojson.mesh(vis.us, vis.us.objects.states, function (a, b) { return a !== b; }))
 			.attr("id", "state-borders")
 			.attr("d", vis.path);
+
+			
 
 	}
 
