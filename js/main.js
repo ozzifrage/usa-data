@@ -26,19 +26,19 @@ Promise.all([
 
 				// add binned data for representational graphs
 				if (element.Income < 30000) {
-					element.IncomeClass = "income-low"
+					element.IncomeClass = "below-30k"
 				} else if (element.Income < 60000) {
-					element.IncomeClass = "income-medium"
+					element.IncomeClass = "30k-to-60k"
 				} else {
-					element.IncomeClass = "income-high"
+					element.IncomeClass = "above-60k"
 				}
 
 				if (element.VetPct < 5) {
-					element.VetClass = "vet-low"
+					element.VetClass = "below-5-pct"
 				} else if (element.VetPct < 10) {
-					element.VetClass = "vet-medium"
+					element.VetClass = "5-to-10-pct"
 				} else {
-					element.VetClass = "vet-high"
+					element.VetClass = "above-10-pct"
 				}
 			}
 		}
@@ -56,7 +56,7 @@ Promise.all([
 
 	incomeBarChart = new BarChart({
 		parentElement: '#top-vis',
-		interestCategories: ["income-low", "income-medium", "income-high"],
+		interestCategories: ["below-30k", "30k-to-60k", "above-60k"],
 		barColor: '#31a354',
 		keyMetric: 'IncomeClass',
 		xAxisLabel: 'Household Income Bracket',
@@ -66,7 +66,7 @@ Promise.all([
 
 	veteransBarChart = new BarChart({
 		parentElement: '#top-vis',
-		interestCategories: ["vet-low", "vet-medium", "vet-high"],
+		interestCategories: ["below-5-pct", "5-to-10-pct", "above-10-pct"],
 		barColor: '#3182bd',
 		keyMetric: 'VetClass',
 		xAxisLabel: 'Adult Veterancy % Bracket',
