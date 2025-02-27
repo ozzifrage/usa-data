@@ -87,6 +87,7 @@ class BarChart {
 
 	updateVis() {
 
+		console.log("called updateVis")
 		let vis = this
 
 		// determine how many of each applicable class are in the current dataset (with filter applied upstream)
