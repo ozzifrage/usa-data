@@ -25,12 +25,12 @@ Promise.all([
 				element.Income = +hhIncomeData[i].MedIncome;
 
 				// add binned data for representational graphs
-				if (element.Income < 40000) {
-					element.IncomeClass = "below-40k"
-				} else if (element.Income < 80000) {
-					element.IncomeClass = "40k-to-80k"
+				if (element.Income < 50000) {
+					element.IncomeClass = "below-50k"
+				} else if (element.Income < 70000) {
+					element.IncomeClass = "50k-to-70k"
 				} else {
-					element.IncomeClass = "above-80k"
+					element.IncomeClass = "above-70k"
 				}
 
 				if (element.VetPct < 5) {
@@ -56,7 +56,7 @@ Promise.all([
 
 	incomeBarChart = new BarChart({
 		parentElement: '#top-vis',
-		interestCategories: ["below-40k", "40k-to-80k", "above-80k"],
+		interestCategories: ["below-50k", "50k-to-70k", "above-70k"],
 		barColor: '#31a354',
 		keyMetric: 'IncomeClass',
 		xAxisLabel: 'Household Income Bracket',
