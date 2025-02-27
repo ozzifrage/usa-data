@@ -41,20 +41,20 @@ class BarChart {
 
 		// All subsequent functions/properties can ignore the margins
 		// Initialize linear + ordinal scales
-		const xScale = d3.scaleBand()
+		vis.xScale = d3.scaleBand()
 			.domain(vis.interestCategories)
 			.range([0, vis.width])
 			.paddingInner(0.15);
 
-		const yScale = d3.scaleLinear()
-			.domain([vis.data.length, 0])
-			.range([0, vis.height]);
+		vis.yScale = d3.scaleLinear()
+			.domain([0, vis.data.length])
+			.range([vis.height, 0]);
 
 
 		// Initialize axes
-		const xAxis = d3.axisBottom(xScale)
+		const xAxis = d3.axisBottom(vis.xScale)
 
-		const yAxis = d3.axisLeft(yScale)
+		const yAxis = d3.axisLeft(vis.yScale)
 
 		// Draw the axis (move xAxis to the bottom with 'translate')
 		const xAxisGroup = vis.chart.append('g')
@@ -82,23 +82,32 @@ class BarChart {
 			.attr("x", -vis.config.margin.top - 100)
 			.text("# Of Counties")
 
-		//vis.updateVis()
+		vis.updateVis()
 	}
 
 	updateVis() {
 
-		// determine how many of each applicable class are in the current dataset (with filter applied upstream)
 		let vis = this
+
+		// determine how many of each applicable class are in the current dataset (with filter applied upstream)
+		let aggrData = []
+		console.log(vis.interestCategories)
+
+		for (let category in vis.interestCategories) {
+			console.log(vis.interestCategories[category])
+			aggrData.push([vis.interestCategories[category], (d3.filter(vis.data, (d) => d.IncomeClass == vis.interestCategories[category]).length)])
+		}
+		console.log(aggrData)
 
 		// Add rectangles
 		vis.svg.selectAll('rect')
-			.data(data)
+			.data(aggrData)
 			.join('rect')
 			.attr('class', 'bar')
-			.attr('width', d => xScale(d.sales))
-			.attr('height', yScale.bandwidth())
-			.attr('y', d => yScale(d.month))
-			.attr('x', 0);
+			.attr('width', vis.xScale.bandwidth() / 2 )
+			.attr('height', d => vis.height - vis.yScale(d[1]))
+			.attr('y', d => vis.yScale(d[1]) + 40)
+			.attr('x', d => vis.xScale(d[0]) + 100);
 	}
 
 }
