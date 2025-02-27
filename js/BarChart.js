@@ -11,6 +11,8 @@ class BarChart {
 		this.data = _data;
 		this.interestCategories = _config.interestCategories;
 		this.barColor = _config.barColor;
+		this.keyMetric = _config.keyMetric;
+		this.xAxisLabel = _config.xAxisLabel;
 
 		this.initVis();
 	}
@@ -72,7 +74,7 @@ class BarChart {
 			.attr("text-anchor", "end")
 			.attr("x", vis.width / 2 + vis.config.margin.left + 20)
 			.attr("y", vis.height + vis.config.margin.top)
-			.text("Household Income Bracket");
+			.text(vis.xAxisLabel);
 
 		// Y axis label:
 		vis.chart.append("text")
@@ -96,7 +98,7 @@ class BarChart {
 
 		for (let category in vis.interestCategories) {
 			console.log(vis.interestCategories[category])
-			aggrData.push([vis.interestCategories[category], (d3.filter(vis.data, (d) => d.IncomeClass == vis.interestCategories[category]).length)])
+			aggrData.push([vis.interestCategories[category], (d3.filter(vis.data, (d) => d[vis.keyMetric] == vis.interestCategories[category]).length)])
 		}
 		console.log(aggrData)
 

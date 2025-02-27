@@ -56,7 +56,17 @@ Promise.all([
 	incomeBarChart = new BarChart({
 		parentElement: '#top-vis',
 		interestCategories: ["income-low", "income-medium", "income-high"],
-		barColor: '#31a354'
+		barColor: '#31a354',
+		keyMetric: 'IncomeClass',
+		xAxisLabel: 'Household Income Bracket'
+	}, mergedData)
+
+	veteransBarChart = new BarChart({
+		parentElement: '#top-vis',
+		interestCategories: ["vet-low", "vet-medium", "vet-high"],
+		barColor: '#3182bd',
+		keyMetric: 'VetClass',
+		xAxisLabel: 'Adult Veterancy % Bracket'
 	}, mergedData)
 
 	// join veteran percentage and median hh income to geo data on county FIPS code
@@ -115,8 +125,10 @@ d3.selectAll('.legend-btn').on('click', function() {
 	console.log(filteredData)
 	scatterPlot.data = filteredData;
 	incomeBarChart.data = filteredData;
+	veteransBarChart.data = filteredData;
 	
 	scatterPlot.updateVis();
 	incomeBarChart.updateVis();
+	veteransBarChart.updateVis();
   
   });
