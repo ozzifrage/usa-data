@@ -56,7 +56,7 @@ Promise.all([
 	incomeBarChart = new BarChart({
 		parentElement: '#top-vis',
 		interestCategories: ["income-low", "income-medium", "income-high"],
-		colorRange: ['#e5f5e0', '#31a354']
+		barColor: '#31a354'
 	}, mergedData)
 
 	// join veteran percentage and median hh income to geo data on county FIPS code

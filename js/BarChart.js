@@ -10,7 +10,7 @@ class BarChart {
 
 		this.data = _data;
 		this.interestCategories = _config.interestCategories;
-		this.colorRange = _config.colorRange;
+		this.barColor = _config.barColor;
 
 		this.initVis();
 	}
@@ -105,6 +105,7 @@ class BarChart {
 			.data(aggrData)
 			.join('rect')
 			.attr('class', 'bar')
+			.attr('fill', vis.barColor)
 			.attr('width', vis.xScale.bandwidth() / 2 )
 			.attr('height', d => vis.height - vis.yScale(d[1]))
 			.attr('y', d => vis.yScale(d[1]) + 40)
