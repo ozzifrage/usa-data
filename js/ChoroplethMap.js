@@ -118,10 +118,29 @@ class ChoroplethMap {
 			.style("text-decoration", "underline")  
 			.text(vis.config.titleText);
 
-		vis.g.append("path")
-			.datum(topojson.mesh(vis.us, vis.us.objects.states, function (a, b) { return a !== b; }))
-			.attr("id", "state-borders")
-			.attr("d", vis.path);
+		// Initialize gradient that we will later use for the legend
+		vis.linearGradient = vis.svg.append('defs').append('linearGradient')
+			.attr("id", "legend-gradient");
+
+		// Append legend
+		// vis.legend = vis.g.append('g')
+		// 	.attr('class', 'legend')
+		// 	.attr('transform', `translate(${vis.config.legendLeft},${vis.height - vis.config.legendBottom})`);
+		
+		// vis.legendRect = vis.legend.append('rect')
+		// 	.attr('width', vis.config.legendRectWidth)
+		// 	.attr('height', vis.config.legendRectHeight);
+	
+		// vis.legendTitle = vis.legend.append('text')
+		// 	.attr('class', 'legend-title')
+		// 	.attr('dy', '.35em')
+		// 	.attr('y', -10)
+		// 	.text('Pop. density per square km')
+
+		// vis.g.append("path")
+		// 	.datum(topojson.mesh(vis.us, vis.us.objects.states, function (a, b) { return a !== b; }))
+		// 	.attr("id", "state-borders")
+		// 	.attr("d", vis.path);
 
 			
 

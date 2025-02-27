@@ -115,7 +115,7 @@ class BarChart {
 		console.log(aggrData)
 
 		// Add rectangles
-		vis.svg.selectAll('rect')
+		vis.bars = vis.svg.selectAll('rect')
 			.data(aggrData)
 			.join('rect')
 			.attr('class', 'bar')
@@ -124,6 +124,24 @@ class BarChart {
 			.attr('height', d => vis.height - vis.yScale(d[1]))
 			.attr('y', d => vis.yScale(d[1]) + 40)
 			.attr('x', d => vis.xScale(d[0]) + 100);
+
+		vis.bars.on('mousemove', (event, d) => {
+			console.log("mouse over bar plot! ");
+			console.log(d);
+			console.log(event);
+
+			d3.select('#tooltip')
+				.style('display', 'block')
+				.style('left', (event.pageX + vis.config.tooltipPadding) + 'px')
+				.style('top', (event.pageY + vis.config.tooltipPadding) + 'px')
+				.html(`
+					<div class="tooltip-title">Total Counties: ${d[1]}</div>
+
+				`);
+		})
+		.on('mouseleave', () => {
+			d3.select('#tooltip').style('display', 'none');
+		});
 	}
 
 }
