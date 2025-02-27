@@ -137,10 +137,10 @@ class ChoroplethMap {
 		// 	.attr('y', -10)
 		// 	.text('Pop. density per square km')
 
-		// vis.g.append("path")
-		// 	.datum(topojson.mesh(vis.us, vis.us.objects.states, function (a, b) { return a !== b; }))
-		// 	.attr("id", "state-borders")
-		// 	.attr("d", vis.path);
+		vis.g.append("path")
+		 	.datum(topojson.mesh(vis.us, vis.us.objects.states, function (a, b) { return a !== b; }))
+		 	.attr("id", "state-borders")
+		 	.attr("d", vis.path);
 
 			
 
