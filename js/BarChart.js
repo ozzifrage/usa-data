@@ -5,7 +5,8 @@ class BarChart {
 			parentElement: _config.parentElement,
 			containerWidth: _config.containerWidth || 500,
 			containerHeight: _config.containerHeight || 500,
-			margin: { top: 40, right: 50, bottom: 80, left: 70 }
+			margin: { top: 40, right: 50, bottom: 80, left: 70 },
+			metricType: _config.metricType
 		}
 
 		this.data = _data;
@@ -29,6 +30,7 @@ class BarChart {
 		// Define size of SVG drawing area
 		vis.svg = d3.select(vis.config.parentElement).append('svg')
 			.attr('class', 'center-container')
+			.attr('class', vis.config.metricType)
 			.attr('width', vis.config.containerWidth)
 			.attr('height', vis.config.containerHeight);
 

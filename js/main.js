@@ -60,7 +60,8 @@ Promise.all([
 		barColor: '#31a354',
 		keyMetric: 'IncomeClass',
 		xAxisLabel: 'Household Income Bracket',
-		chartTitle: 'Distribution of County Median Household Incomes'
+		chartTitle: 'Distribution of County Median Household Incomes',
+		metricType: 'income'
 	}, mergedData)
 
 	veteransBarChart = new BarChart({
@@ -69,7 +70,8 @@ Promise.all([
 		barColor: '#3182bd',
 		keyMetric: 'VetClass',
 		xAxisLabel: 'Adult Veterancy % Bracket',
-		chartTitle: 'Distribution of County Veterancy Rates'
+		chartTitle: 'Distribution of County Veterancy Rates',
+		metricType: 'veterans'
 	}, mergedData)
 
 	// join veteran percentage and median hh income to geo data on county FIPS code
@@ -89,6 +91,7 @@ Promise.all([
 		colorRange: ['#deebf7', '#3182bd'],
 		tooltipString: `Adult Pop. Vet %: `,
 		tooltipMetric: "VetPct",
+		metricType: "veterans",
 		titleText: "Veterancy Rate by County"
 	}, geoData);
 
@@ -98,6 +101,7 @@ Promise.all([
 		colorRange: ['#e5f5e0', '#31a354'],
 		tooltipString: `Median Household Income: $`,
 		tooltipMetric: "Income",
+		metricType: "income",
 		titleText: "Median Household Income by County"
 	}, geoData);
 
@@ -132,3 +136,39 @@ d3.selectAll('.legend-btn').on('click', function() {
 	veteransBarChart.updateVis();
   
   });
+
+d3.selectAll('.visibility-btn').on('click', function() {
+	console.log("visibility button!")
+
+	// Toggle 'inactive' class
+	d3.select(this).classed('inactive', !d3.select(this).classed('inactive'));
+
+	// Check which categories are active
+	let activeViews = [];
+	d3.selectAll('.visibility-btn:not(.inactive)').each(function() {
+		activeViews.push(d3.select(this).attr('category'));
+	});
+
+	console.log(activeViews)
+	// show all views in active categories, hide the rest
+	if (activeViews.includes("median-household-income")) {
+		console.log("showing the income graphs")
+		d3.selectAll(".income").style('display', 'table-cell');
+
+	} else {
+		console.log("hiding the income graphs")
+		console.log(d3.selectAll("income"))
+		d3.selectAll(".income").style('display', 'none');
+	}
+
+	// show all views in active categories, hide the rest
+	if (activeViews.includes("adult-veterancy-rate")) {
+		console.log("showing the veterancy graphs")
+		d3.selectAll(".veterans").style('display', 'table-cell');
+	} else {
+		console.log("hiding the income graphs")
+		d3.selectAll(".veterans").style('display', 'none');
+	}
+
+
+});

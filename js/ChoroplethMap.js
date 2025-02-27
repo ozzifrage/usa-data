@@ -19,7 +19,8 @@ class ChoroplethMap {
 			legendLeft: 50,
 			legendRectHeight: 12,
 			legendRectWidth: 150,
-			titleText: _config.titleText
+			titleText: _config.titleText,
+			metricType: _config.metricType
 		}
 		this.data = _data;
 		// this.config = _config;
@@ -44,6 +45,7 @@ class ChoroplethMap {
 		// Define size of SVG drawing area
 		vis.svg = d3.select(vis.config.parentElement).append('svg')
 			.attr('class', 'center-container')
+			.attr('class', vis.config.metricType)
 			.attr('width', vis.config.containerWidth)
 			.attr('height', vis.config.containerHeight);
 

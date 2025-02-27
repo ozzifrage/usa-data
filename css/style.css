@@ -78,7 +78,21 @@
 	margin: 5px;
 	height: 150px;
 	float: left;
-	width: 60%;
+	width: 40%;
+	display: table-cell;
+	text-align: center;
+
+}
+
+.visibility-box {
+	background-color: #F1F1F1;
+	box-shadow: 3px 3px 3px 0px rgb(92 92 92 / 0.5);
+	border: 1px solid #ddd;
+	padding: 10px;
+	margin: 5px;
+	height: 150px;
+	float: left;
+	width: 20%;
 	display: table-cell;
 	text-align: center;
 
@@ -109,6 +123,21 @@
 }
 
 .legend-btn.inactive {
+	opacity: 0.3;
+}
+
+.visibility-btn {
+	display: inline-block;
+	margin: 0 20px 0 0;
+	cursor: pointer;
+	transition: all ease-in-out 200ms;
+}
+
+.visibility-btn:hover.visibility-btn.inactive:hover {
+	opacity: 1.0;
+}
+
+.visibility-btn.inactive {
 	opacity: 0.3;
 }
 
