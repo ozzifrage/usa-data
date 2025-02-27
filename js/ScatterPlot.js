@@ -65,7 +65,7 @@ class ScatterPlot {
 			.attr("text-anchor", "end")
 			.attr("transform", "rotate(-90)")
 			.attr("y", -vis.config.margin.left + 20)
-			.attr("x", -vis.config.margin.top)
+			.attr("x", -vis.config.margin.top - 30)
 			.text("Median Household Income (USD)")
 
 		vis.updateVis()

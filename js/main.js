@@ -2,7 +2,7 @@
  * Load all data before doing anything else.
  */
 
-let data, mergedData;
+let data, mergedData, scatterPlot, incomeBarChart, vetBarChart;
 
 Promise.all([
 	d3.csv('data/adult-pop-vet-pct.csv'),
@@ -53,9 +53,11 @@ Promise.all([
 		'containerWidth': 600
 	}, mergedData);
 
-	//let barChart = new BarChart({
-
-	//}, mergedData)
+	incomeBarChart = new BarChart({
+		parentElement: '#top-vis',
+		interestCategories: ["income-low", "income-medium", "income-high"],
+		colorRange: ['#e5f5e0', '#31a354']
+	}, mergedData)
 
 	// join veteran percentage and median hh income to geo data on county FIPS code
 	geoData.objects.counties.geometries.forEach(element => {
